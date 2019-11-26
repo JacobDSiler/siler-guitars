@@ -1,0 +1,21 @@
+app.post("/api/images", parser.single("image"), function(req, res) {
+  const postId = req.body.button;
+
+  //console.log(postId); // to see what is returned to you
+  const img = {};
+  img.url = req.file.url;
+  img.id = req.file.public_id;
+  Image.create(img) // save image information in database
+    .then(newImage => {
+      // return Image.create({ image: { url: img.url, id: img.id } }, function(
+      //   err,
+      //   img
+      // ) {
+      /*if (!err) {
+        res.redirect("/");
+      } else {
+        res.send(err);
+      }*/
+    })
+    .catch(err => console.log(err));
+});

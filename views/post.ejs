@@ -1,0 +1,14 @@
+<%- include("partials/header"); -%>
+
+  <h1><%=title%></h1>
+  <p><%=content%></p>
+  <br />
+  <br />
+  <hr />
+  <% if (typeof images!='undefined'){ images.forEach((image) => {%>
+<div style="float: left;" class="">
+  <a href="<%= image %>" ><img style="background-color: grey; height:350px; padding:10px; border-radius: 10px; border: 1px solid black; " src="<%= image %>"></a>
+</div>
+  <%});}%>
+
+<%- include("partials/footer"); -%>

@@ -1,0 +1,47 @@
+
+<%- include("partials/header"); -%>
+<div class="row">
+
+  <div class="col-sm-2 dates">
+    <div class="card" style="width: 18rem;">
+  <img class="card-img-top" style="width:18rem;" src="https://scontent-dub4-1.xx.fbcdn.net/v/t1.0-9/42229884_10100565545026274_442369863277608960_n.jpg?_nc_cat=103&_nc_ohc=TmuOuJcywagAQlIXv94zankpQPg0f2G9J9qtbiiQ1fKM3hshG-OHOT-BQ&_nc_ht=scontent-dub4-1.xx&oh=a394e8a6d9b64f6e66b7b6175db72a59&oe=5E3FB61C" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+  </div>
+  <div class="col-sm-8">
+    <h1>Home</h1>
+    <p> <%= startingContent %> </p>
+    <hr>
+<div class="">
+
+  <% posts.forEach(function(post){ %>
+
+    <a href="/posts/<%=post.id%>"><h1><%=post.title%></h1></a>
+
+    <a href="/posts/<%=post.id%>"><img src="<%=post.imageUrls[0]%>" style="border-radius: 20px; height: 120px;"></a>
+    <p>
+    <%=post.content.substring(0, 100) + " ..."%>
+    <br>
+    <a href="/posts/<%=post.id%>">Read More</a>
+    <a href="/edit-post/<%=post.id%>">* Edit *</a>
+    <a href="/edit/<%=post.id%>">* Attach Images *</a>
+    </p>
+
+    <hr>
+
+  <% }); %>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<%- include("partials/footer"); -%>

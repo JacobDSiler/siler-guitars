@@ -1,0 +1,30 @@
+<%- include("partials/header"); -%>
+
+<div class="container">
+
+
+<h1>Image Upload</h1>
+<br>
+<br>
+<br>
+
+<form action='/api/images' method="post" enctype="multipart/form-data">
+  <input class="btn btn-lg" type='file' name='image' />
+  <div class="btn btn-lg">
+    <button type="submit" name="button">Upload</button>
+  </div>
+</form>
+
+<!-- The post's current images -->
+<% if (typeof postID  != 'undefined') {%>
+    <div >
+      </div>
+      <h2>Currently Attached Images</h2>
+      <% currentImages.forEach((image) => { %>
+         <a href="<%= image %>"><img style="height: 100px;  border: 1px solid black; padding:1px;" src="<%= image %>"></a>
+      <% }) } %>
+    </div>
+
+
+
+<%- include("partials/footer"); -%>

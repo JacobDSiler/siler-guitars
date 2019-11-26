@@ -1,0 +1,18 @@
+<%- include("partials/header"); -%>
+
+<% if (typeof postID  != 'undefined') {%>
+  <h1 id="PostId"><%=postID%></h1>
+  <%}%>
+  <h1><%=title%></h1>
+  <p><%=content%></p>
+  <br />
+  <br />
+  <hr />
+  <% if (typeof images!='undefined'){ images.forEach((image) => {%>
+<div style="float: left;" class="">
+  <div class="delete"><a href="#" name="<%= image %>">x</a></div>
+  <a href="<%= image %>" ><img style="background-color: grey; height:350px; padding:10px; border-radius: 10px; border: 1px solid black; " src="<%= image %>"></a>
+</div>
+  <%});}%>
+
+<%- include("partials/footer"); -%>
