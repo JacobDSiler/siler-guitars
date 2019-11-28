@@ -1,4 +1,4 @@
-//jshint esversion:6
+//jshint esversion:8
 //require('dotenv').config();
 //import "./public/css/styles.css";
 const express = require("express");
@@ -89,8 +89,7 @@ app.get("/", function(req, res) {
   let dates = [];
   FeatureDate.find({}, function(err, date) {
     dates.push(date);
-    console.log(dates);
-    //TODO Make dates an array of objects.
+    // console.log(dates);
   });
   Post.find({}, function(err, posts) {
     res.render("home", {
@@ -198,26 +197,24 @@ app.get("/compose", function(req, res) {
   });
 });
 
-app.post("/new-date", function(req, res) {
-  console.log(req.body);
-  console.log(req.body.imageSelected);
-  const newDate = new FeatureDate({
-    date: req.body.datepicker,
-    title: req.body.dateTitle,
-    content: req.body.dateBody,
-    imageUrl: req.body.imageSelected,
-    linkUrl: req.body.linkUrl
-  });
-  console.log(newDate);
-  newDate.save(function(err) {
-    if (!err) {
-      res.redirect("/");
-    } else {
-      console.log(err);
-    }
-  });
+app.post("/new-date", async (req, res, next) => {
+  try {
+    // console.log(req.body);
+    // console.log(req.body.imageSelected);
+    const newDate = new FeatureDate({
+      date: req.body.datepicker,
+      title: req.body.dateTitle,
+      content: req.body.dateBody,
+      imageUrl: req.body.imageSelected,
+      linkUrl: req.body.linkUrl
+    });
 
-  res.redirect("/compose");
+    var created = await newDate.save();
+    res.redirect("/");
+  } catch (error) {
+    console.log("error", error);
+    res.send({ error });
+  }
 });
 
 //One single requested post.
@@ -311,7 +308,7 @@ app.post("/api/images", parser.single("image"), function(req, res) {
   img.url = img.url.substr(0, 4) + "s" + img.url.substr(4);
   console.log(img.url);
   img.id = req.file.public_id;
-  Image.create(img, (err, newImage) => {
+  date.create(img, (err, newImage) => {
     if (!err) {
       res.redirect("/edit");
     } else {
