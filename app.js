@@ -305,9 +305,11 @@ app.post("/remove-image", (req, res) => {
 // When user uploads an image.
 app.post("/api/images", parser.single("image"), function(req, res) {
   const postId = req.body.button;
-  const img = {};
+  let img = {};
 
   img.url = req.file.url;
+  img.url = img.url.substr(0, 4) + "s" + img.url.substr(4);
+  console.log(img.url);
   img.id = req.file.public_id;
   Image.create(img, (err, newImage) => {
     if (!err) {
