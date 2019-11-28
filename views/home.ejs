@@ -2,16 +2,34 @@
 <%- include("partials/header"); -%>
 <div class="row">
 
-  <div class="col-sm-2 dates">
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" style="width:18rem;" src="https://scontent-dub4-1.xx.fbcdn.net/v/t1.0-9/42229884_10100565545026274_442369863277608960_n.jpg?_nc_cat=103&_nc_ohc=TmuOuJcywagAQlIXv94zankpQPg0f2G9J9qtbiiQ1fKM3hshG-OHOT-BQ&_nc_ht=scontent-dub4-1.xx&oh=a394e8a6d9b64f6e66b7b6175db72a59&oe=5E3FB61C" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+  <div class="col-sm-2 feature-date">
+
+    <% dates.forEach((featureDate)=>{ %>
+      <%console.log(featureDate);%>
+    <% featureDate.forEach((date)=>{ %>
+      <%console.log(date);%>
+
+        <div class="card" style="width: 17rem;">
+          <h2 class="text-center text-success"><%=date.date%></h2>
+      <img class="card-img-top" style="width:17rem;" src="<%=date.imageUrl%>" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><%=date.title%></h5>
+        <p class="card-text"><%=date.content%></p>
+        <div class="text-center">
+          <% if(typeof date.linkUrl !='undefined') {%>
+          <a href="<%=date.linkUrl%>" class="btn btn-primary">View More</a>
+          <%}%>
+        </div>
+      </div>
+      <hr>
+    </div>
+<br>
+<%});});%>
+
   </div>
-</div>
-  </div>
+
+
   <div class="col-sm-8">
     <h1>Home</h1>
     <p> <%= startingContent %> </p>
@@ -22,7 +40,7 @@
 
     <a href="/posts/<%=post.id%>"><h1><%=post.title%></h1></a>
 
-    <a href="/posts/<%=post.id%>"><img src="<%=post.imageUrls[0]%>" style="border-radius: 20px; height: 120px;"></a>
+    <a href="/posts/<%=post.id%>"><img src="<%post.imageUrls[0]%>" style="border-radius: 20px; height: 120px;"></a>
     <p>
     <%=post.content.substring(0, 100) + " ..."%>
     <br>

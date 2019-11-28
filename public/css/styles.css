@@ -24,9 +24,15 @@ html {
   padding-bottom: 60px;
 }
 
-.dates {
+.feature-date {
+  border: solid 2px lightgrey;
+  border-radius: 10px;
   float: left;
 }
+/* Layout style overrides */
+/* .row {
+  margin-left: -60px;
+} */
 
 /* styling the delete X's */
 .delete {

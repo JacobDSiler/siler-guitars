@@ -1,13 +1,13 @@
 <%- include("partials/header"); -%>
 
-<h1 id="postID"><%=typeof postID  != 'undefined' ? postID  : ''%></h1>
+<h1 id="postID"><%=typeof postID  != 'undefined' ? ''  : ''%></h1>
 
 
 <% if (typeof postID  != 'undefined') { %>
-<hr />
+<hr />s
 <h1>Images attached to this post:</h1>
 <% postImages.forEach((image) => { %>
-   <a href="#"><img style="height: 100px;  border: 1px solid black; padding:1px;" src="<%= image %>"></a>
+  <a href="#"><img style="height: 100px;  border: 1px solid black; padding:1px;" src="<%= image %>"></a>
 <% });} %>
 
 <!-- The post selection logic -->
@@ -27,13 +27,13 @@
 <!-- The image selection logic -->
     <div id="image-container">
       <% images.forEach((image) => { %>
-         <a href="#"><img style="height: 100px;  border: 1px solid black; padding:1px;" src="<%= image.url %>"></a>
+        <a href="#"><img style="height: 100px;  border: 1px solid black; padding:1px;" src="<%= image.url %>"></a>
       <% }) %>
     </div>
 <hr>
     <button id="add-image-button">Add Image Choice</button>
 
 
-</div>
+
 
 <%- include("partials/footer"); -%>

@@ -1,6 +1,14 @@
 //jshint esversion:8
 const imageContainer = document.getElementById("image-container");
 const imageSelection = [];
+//Date selection form
+let selectedImage = [];
+const dateSubmitButton = $("#imageSubmit");
+//Disable submit button.
+$(document).ready(function() {
+  dateSubmitButton.prop("disabled", true);
+});
+
 let postValue = "undefined";
 let postId = "undefined";
 
@@ -38,6 +46,20 @@ if ($("#PostId").is(":empty")) {
     console.log(postId);
   }
 }
+
+//Datepicker Image Select logic
+$("#image-area a").on("click", function(e) {
+  const link = e.target.src;
+  //console.log(link);
+  if (link != "") {
+    selectedImage = [link];
+    console.log(selectedImage);
+    $("#chosenImage")[0].value = selectedImage;
+    console.log($("#chosenImage")[0].value);
+    dateSubmitButton.prop("disabled", false);
+  }
+  return false;
+});
 
 //delete image logic for post view
 $(".delete a").on("click", async e => {

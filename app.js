@@ -45,12 +45,15 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./public"));
-
-mongoose.connect("mongodb://localhost:27017/blogDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
-});
+//mongodb+srv://admin-jacob:4theoneIlove@cluster0-axkom.mongodb.net/silerguitars
+mongoose.connect(
+  "mongodb+srv://admin-jacob:4theoneIlove@cluster0-axkom.mongodb.net/silerguitars",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  }
+);
 
 //Defining the Image Schema
 const imageSchema = {
@@ -69,16 +72,31 @@ const postSchema = {
 
 const Post = new mongoose.model("Post", postSchema);
 
+//Defining the Dates Schema
+const dateSchema = {
+  date: String,
+  title: String,
+  content: String,
+  imageUrl: String,
+  linkUrl: String
+};
+
+const FeatureDate = new mongoose.model("FeatureDate", dateSchema);
+
 //Routes
 //GET Routes
 app.get("/", function(req, res) {
+  let dates = [];
+  FeatureDate.find({}, function(err, date) {
+    dates.push(date);
+    console.log(dates);
+    //TODO Make dates an array of objects.
+  });
   Post.find({}, function(err, posts) {
-    let foundImages = posts[0].imageUrls;
-    // console.log(posts[0].imageUrls);
     res.render("home", {
       startingContent: homeStartingContent,
-      posts: posts,
-      images: foundImages
+      dates: dates,
+      posts: posts
     });
   });
 });
@@ -131,7 +149,6 @@ app.get("/edit/:postId", function(req, res) {
 app.get("/edit-post/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, foundPosts) {
-    //TODO find the post requested and save it's images to a variable to pass to the ejs.]
     //console.log(foundPosts);
     let title;
     let content;
@@ -154,7 +171,6 @@ app.get("/edit-post/:postId", function(req, res) {
 app.get("/posts/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, foundPosts) {
-    //TODO find the post requested and save it's images to a variable to pass to the ejs.]
     //console.log(foundPosts);
     let title;
     let content;
@@ -175,7 +191,33 @@ app.get("/posts/:postId", function(req, res) {
 });
 
 app.get("/compose", function(req, res) {
-  res.render("compose");
+  Image.find({}, function(err, images) {
+    res.render("compose", {
+      images: images
+    });
+  });
+});
+
+app.post("/new-date", function(req, res) {
+  console.log(req.body);
+  console.log(req.body.imageSelected);
+  const newDate = new FeatureDate({
+    date: req.body.datepicker,
+    title: req.body.dateTitle,
+    content: req.body.dateBody,
+    imageUrl: req.body.imageSelected,
+    linkUrl: req.body.linkUrl
+  });
+  console.log(newDate);
+  newDate.save(function(err) {
+    if (!err) {
+      res.redirect("/");
+    } else {
+      console.log(err);
+    }
+  });
+
+  res.redirect("/compose");
 });
 
 //One single requested post.
@@ -245,7 +287,7 @@ app.post("/remove-image", (req, res) => {
   const postID = postImage.shift();
   postImage = postImage.toString();
   // console.log(postImage.toString());
-  // console.log(postID);
+  console.log(postID);
   Post.updateOne({ _id: postID }, { $pull: { imageUrls: postImage } }, function(
     err,
     foundPost
@@ -267,9 +309,16 @@ app.post("/api/images", parser.single("image"), function(req, res) {
 
   img.url = req.file.url;
   img.id = req.file.public_id;
-  Image.create(img) // save image information in database
-    .then(newImage => res.redirect("/"))
-    .catch(err => console.log(err));
+  Image.create(img, (err, newImage) => {
+    if (!err) {
+      res.redirect("/edit");
+    } else {
+      console.log(err);
+    }
+  }); // save image information in database
+  // .then(newImage => res.redirect("/edit"))
+  // .catch(err => console.log(err)); start
+  //
 });
 
 app.post("/compose", function(req, res) {
