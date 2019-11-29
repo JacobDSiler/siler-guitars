@@ -1,10 +1,10 @@
 <%- include("partials/header"); -%>
 
-<h1 id="postID"><%=typeof postID  != 'undefined' ? ''  : ''%></h1>
+<h1 id="postID" value="<%=typeof postID  != 'undefined' ? postID  : ''%>"></h1>
 
 
 <% if (typeof postID  != 'undefined') { %>
-<hr />s
+<hr />
 <h1>Images attached to this post:</h1>
 <% postImages.forEach((image) => { %>
   <a href="#"><img style="height: 100px;  border: 1px solid black; padding:1px;" src="<%= image %>"></a>

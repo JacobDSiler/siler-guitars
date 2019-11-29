@@ -24,15 +24,16 @@ const addImageButton = document.getElementById("add-image-button");
 
 //post selection logic
 
-if ($("#postID").is(":empty")) {
+if ($("#postID").attr("value") == "") {
   $("#post-dropdown").on("change", function() {
     if ($(this).val() != "") {
       postValue = $(this).val();
-      //console.log(postValue);
+      console.log(postValue);
     }
   });
 } else {
-  postValue = $("#postID").html();
+  postValue = $("#postID").attr("value");
+  console.log(postValue);
   if (postValue != undefined) {
     console.log(postValue);
   }
