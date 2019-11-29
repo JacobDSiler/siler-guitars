@@ -28,23 +28,23 @@ if ($("#postID").attr("value") == "") {
   $("#post-dropdown").on("change", function() {
     if ($(this).val() != "") {
       postValue = $(this).val();
-      console.log(postValue);
+      //console.log(postValue);
     }
   });
 } else {
   postValue = $("#postID").attr("value");
-  console.log(postValue);
+  //console.log(postValue);
   if (postValue != undefined) {
-    console.log(postValue);
+    //console.log(postValue);
   }
 }
 //Specifically for the post view.
 if ($("#PostId").is(":empty")) {
-  console.log("No Post Id is Specified!");
+  ////console.log("No Post Id is Specified!");
 } else {
   postId = $("#PostId").html();
   if (postId != undefined) {
-    console.log(postId);
+    //console.log(postId);
   }
 }
 
@@ -54,9 +54,9 @@ $("#image-area a").on("click", function(e) {
   //console.log(link);
   if (link != "") {
     selectedImage = [link];
-    console.log(selectedImage);
+    //console.log(selectedImage);
     $("#chosenImage")[0].value = selectedImage;
-    console.log($("#chosenImage")[0].value);
+    //console.log($("#chosenImage")[0].value);
     dateSubmitButton.prop("disabled", false);
   }
   return false;
@@ -68,7 +68,7 @@ $(".delete a").on("click", async e => {
   clickedImg.push(e.target.name);
   // Unshift post selection to the imageSelection array
   clickedImg.unshift(postId);
-  console.log(clickedImg);
+  //console.log(clickedImg);
   //Post to the route for removing images
   const url = "http://localhost:3000/remove-image";
 
@@ -81,15 +81,15 @@ $(".delete a").on("click", async e => {
   });
 
   const myJson = await result.json(location.reload());
-  console.log(JSON.stringify(myJson));
-  // return false;
+  //console.log(JSON.stringify(myJson));
+  return false;
 });
 
 if (addImageButton != null) {
   addImageButton.addEventListener("click", async () => {
     const url = "http://localhost:3000/post-images";
     if (postValue && postValue !== "undefined") {
-      // Unshift post selection to the imageSelection array
+      //Unshift post selection to the imageSelection array
       imageSelection.unshift(postValue);
       //Then post the images and the selected post to the node server to process.
       const res = await fetch(url, {
@@ -100,7 +100,7 @@ if (addImageButton != null) {
         body: JSON.stringify(imageSelection)
       });
       const myJson = await res.json(location.reload());
-      console.log(JSON.stringify(myJson));
+      //console.log(JSON.stringify(myJson));
     } else {
       alert(
         "Please select a post from the dropdown menu, and at least one image to add to it."

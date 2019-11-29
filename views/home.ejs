@@ -5,7 +5,6 @@
 
   <div class="col-sm-2 feature-date">
     <% theDates.forEach((date)=>{ %>
-
         <div class="card" style="width: 17rem;">
           <h2 class="text-center text-success"><%=date.date%></h2>
       <a href="<%=date.imageUrl%>"><img class="card-img-top" style="width:17rem;" src="<%=date.imageUrl%>" alt=""></a>
@@ -13,7 +12,7 @@
         <h5 class="card-title"><%=date.title%></h5>
         <p class="card-text"><%=date.content%></p>
         <div class="text-center">
-          <% if(date.linkUrl) { console.log(date.linkUrl);%>
+          <% if(date.linkUrl) {%>
           <a href="<%=date.linkUrl%>" class="btn btn-primary">View More</a>
           <%};%>
         </div>

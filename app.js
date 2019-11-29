@@ -89,9 +89,9 @@ app.get("/", function(req, res) {
   let dates = [];
   FeatureDate.find({}, function(err, date) {
     dates.push(date);
-    // //console.log(dates);
+    //console.log(dates);
   }).then(theDates => {
-    // //console.log(theDates);
+    //console.log(theDates);
     Post.find({}, function(err, posts) {
       res.render("home", {
         startingContent: homeStartingContent,
@@ -130,10 +130,10 @@ app.get("/edit/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, posts) {
     //TODO find the post requested and save it's images to a variable to pass to the ejs.]
-    log(requestedPostId);
+    //log(requestedPostId);
     let postimages;
     posts.forEach(post => {
-      log(post.imageUrls);
+      //log(post.imageUrls);
       postImages = post.imageUrls;
     });
     Image.find({}, function(err, images) {
@@ -150,12 +150,12 @@ app.get("/edit/:postId", function(req, res) {
 app.get("/edit-post/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, foundPosts) {
-    log(foundPosts);
+    //console.log(foundPosts);
     let title;
     let content;
     let images;
     foundPosts.forEach(post => {
-      log(post.imageUrls);
+      //console.log(post.imageUrls);
       title = post.title;
       content = post.content;
       images = post.imageUrls;
@@ -172,12 +172,12 @@ app.get("/edit-post/:postId", function(req, res) {
 app.get("/posts/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, foundPosts) {
-    log(foundPosts);
+    //console.log(foundPosts);
     let title;
     let content;
     let images;
     foundPosts.forEach(post => {
-      log(post.imageUrls);
+      //console.log(post.imageUrls);
       title = post.title;
       content = post.content;
       images = post.imageUrls;
