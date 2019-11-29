@@ -89,13 +89,15 @@ app.get("/", function(req, res) {
   let dates = [];
   FeatureDate.find({}, function(err, date) {
     dates.push(date);
-    // console.log(dates);
-  });
-  Post.find({}, function(err, posts) {
-    res.render("home", {
-      startingContent: homeStartingContent,
-      dates: dates,
-      posts: posts
+    // //console.log(dates);
+  }).then(theDates => {
+    // //console.log(theDates);
+    Post.find({}, function(err, posts) {
+      res.render("home", {
+        startingContent: homeStartingContent,
+        theDates: theDates,
+        posts: posts
+      });
     });
   });
 });
@@ -128,10 +130,10 @@ app.get("/edit/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, posts) {
     //TODO find the post requested and save it's images to a variable to pass to the ejs.]
-    //console.log(requestedPostId);
+    log(requestedPostId);
     let postimages;
     posts.forEach(post => {
-      //console.log(post.imageUrls);
+      log(post.imageUrls);
       postImages = post.imageUrls;
     });
     Image.find({}, function(err, images) {
@@ -148,12 +150,12 @@ app.get("/edit/:postId", function(req, res) {
 app.get("/edit-post/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, foundPosts) {
-    //console.log(foundPosts);
+    log(foundPosts);
     let title;
     let content;
     let images;
     foundPosts.forEach(post => {
-      //console.log(post.imageUrls);
+      log(post.imageUrls);
       title = post.title;
       content = post.content;
       images = post.imageUrls;
@@ -170,12 +172,12 @@ app.get("/edit-post/:postId", function(req, res) {
 app.get("/posts/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, foundPosts) {
-    //console.log(foundPosts);
+    log(foundPosts);
     let title;
     let content;
     let images;
     foundPosts.forEach(post => {
-      //console.log(post.imageUrls);
+      log(post.imageUrls);
       title = post.title;
       content = post.content;
       images = post.imageUrls;
@@ -199,8 +201,8 @@ app.get("/compose", function(req, res) {
 
 app.post("/new-date", async (req, res, next) => {
   try {
-    // console.log(req.body);
-    // console.log(req.body.imageSelected);
+    // //console.log(req.body);
+    // //console.log(req.body.imageSelected);
     const newDate = new FeatureDate({
       date: req.body.datepicker,
       title: req.body.dateTitle,
@@ -224,7 +226,7 @@ app.post("/new-date", async (req, res, next) => {
   Post.find({}, function(err, posts) {
     const currentPost = Post.find({ _id: requestedPostId });
     const currentImages = Post.find({ _id: requestedPostId, imageUrls: $all });
-    console.log(currentPost.schema.obj.imageUrls.Function);
+    //console.log(currentPost.schema.obj.imageUrls.Function);
     //TODO Add a mongoose query to get the post's currently attached images
     Image.find({}, function(err, images) {
       res.render("edit", {
@@ -263,13 +265,13 @@ app.get("/uploads", function(req, res) {
 app.post("/post-images", (req, res) => {
   var postImages = req.body;
   const postID = postImages.shift();
-  console.log(postImages);
+  // //console.log(postImages);
   Post.updateOne(
     { _id: postID },
     { $push: { imageUrls: postImages } },
     function(err, foundPost) {
       if (!err) {
-        console.log(foundPost);
+        // //console.log(foundPost);
         res.redirect("/");
       } else {
         console.log("error: " + err);
@@ -283,14 +285,14 @@ app.post("/remove-image", (req, res) => {
   let postImage = req.body;
   const postID = postImage.shift();
   postImage = postImage.toString();
-  // console.log(postImage.toString());
-  console.log(postID);
+  // //console.log(postImage.toString());
+  //console.log(postID);
   Post.updateOne({ _id: postID }, { $pull: { imageUrls: postImage } }, function(
     err,
     foundPost
   ) {
     if (!err) {
-      console.log(foundPost);
+      //console.log(foundPost);
       res.redirect("/");
     } else {
       console.log("error: " + err);
@@ -306,18 +308,15 @@ app.post("/api/images", parser.single("image"), function(req, res) {
 
   img.url = req.file.url;
   img.url = img.url.substr(0, 4) + "s" + img.url.substr(4);
-  console.log(img.url);
+  //console.log(img.url);
   img.id = req.file.public_id;
   date.create(img, (err, newImage) => {
     if (!err) {
       res.redirect("/edit");
     } else {
-      console.log(err);
+      console.log("error", err);
     }
-  }); // save image information in database
-  // .then(newImage => res.redirect("/edit"))
-  // .catch(err => console.log(err)); start
-  //
+  });
 });
 
 app.post("/compose", function(req, res) {
@@ -339,5 +338,5 @@ if (port == null || port == "") {
   port = 3000;
 }
 app.listen(port, function() {
-  console.log("Server has started successfully.");
+  //console.log("Server has started successfully.");
 });

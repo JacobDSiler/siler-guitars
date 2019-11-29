@@ -4,28 +4,24 @@
 
 
   <div class="col-sm-2 feature-date">
-
-    <% dates.forEach((featureDate)=>{ %>
-      <%console.log(featureDate);%>
-    <% featureDate.forEach((date)=>{ %>
-      <%console.log("This time it is working?");%>
+    <% theDates.forEach((date)=>{ %>
 
         <div class="card" style="width: 17rem;">
           <h2 class="text-center text-success"><%=date.date%></h2>
-      <img class="card-img-top" style="width:17rem;" src="<%=date.imageUrl%>" alt="Card image cap">
+      <a href="<%=date.imageUrl%>"><img class="card-img-top" style="width:17rem;" src="<%=date.imageUrl%>" alt=""></a>
       <div class="card-body">
         <h5 class="card-title"><%=date.title%></h5>
         <p class="card-text"><%=date.content%></p>
         <div class="text-center">
-          <% if(typeof date.linkUrl !='undefined') {%>
+          <% if(date.linkUrl) { console.log(date.linkUrl);%>
           <a href="<%=date.linkUrl%>" class="btn btn-primary">View More</a>
-          <%}%>
+          <%};%>
         </div>
       </div>
       <hr>
     </div>
 <br>
-<%});});%>
+<%});%>
 
   </div>
 
