@@ -29,10 +29,21 @@ html {
   border-radius: 10px;
   float: left;
 }
+
+.feature-date--delete {
+  position: absolute;
+  font-size: 5rem;
+  text-decoration: none;
+  transform: translate(15px, -10px);
+}
+
+.post--delete {
+  position: absolute;
+  font-size: 5rem;
+  text-decoration: none;
+  transform: translate(15px, -2px);
+}
 /* Layout style overrides */
-/* .row {
-  margin-left: -60px;
-} */
 
 /* styling the delete X's */
 .delete {

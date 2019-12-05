@@ -6,6 +6,7 @@
   <div class="col-sm-2 feature-date">
     <% theDates.forEach((date)=>{ %>
         <div class="card" style="width: 17rem;">
+          <a href="#" class="delete-date"><h1 data-dateid="<%=date.id%>">X</h1></a>
           <h2 class="text-center text-success"><%=date.date%></h2>
       <a href="<%=date.imageUrl%>"><img class="card-img-top" style="width:17rem;" src="<%=date.imageUrl%>" alt=""></a>
       <div class="card-body">

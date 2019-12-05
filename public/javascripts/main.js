@@ -62,6 +62,50 @@ $("#image-area a").on("click", function(e) {
   return false;
 });
 
+//delete featureDate logic for home view
+$(".delete-date > h1").on("click", async e => {
+  let deleteDateRef;
+  //deleteDateRef = [$("DateId")[0].innerHTML];
+  deleteDateRef = [$($(e)[0].currentTarget).data("dateid")];
+  console.log(deleteDateRef);
+  //Post to the route for removing posts
+  const url = "http://localhost:3000/delete-date";
+
+  //Fetch for post request to delete featuredate.
+
+  let result = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(deleteDateRef)
+  });
+
+  const myJson = await result.json(location.reload());
+  //console.log(JSON.stringify(myJson));
+  return false;
+});
+//delete post logic for post view
+$("#delete-post").on("click", async e => {
+  let deletePostID;
+  deletePostID = [$("#PostId")[0].innerHTML];
+  console.log(deletePostID);
+  //Post to the route for removing posts
+  const url = "http://localhost:3000/delete-post";
+
+  let result = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(deletePostID)
+  });
+
+  const myJson = await result.json();
+  //console.log(JSON.stringify(myJson));
+  return false;
+});
+
 //delete image logic for post view
 $(".delete a").on("click", async e => {
   let clickedImg = [];

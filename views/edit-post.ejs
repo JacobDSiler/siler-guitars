@@ -1,7 +1,12 @@
 <%- include("partials/header"); -%>
 
 <% if (typeof postID  != 'undefined') {%>
-  <h1 id="PostId"><%=postID%></h1>
+  <h1>Post ID: <span id="PostId"><%=postID%></span></h1>
+  <div class="container">
+    <h2 style="float: left;">Delete Post: </h2>
+    <a  href="/" class="post--delete" id="delete-post">x</a>
+  </div>
+  <br />
   <%}%>
   <h1><%=title%></h1>
   <p><%=content%></p>

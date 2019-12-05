@@ -2,7 +2,6 @@
 //require('dotenv').config();
 //import "./public/css/styles.css";
 const express = require("express");
-
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
@@ -13,7 +12,7 @@ const multer = require("multer");
 const cloudinary = require("cloudinary");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 
-// Configuring cloudinary to transfrom
+// Configuring cloudinary to transfromrydutu
 // height, and width, and make sure only JPG
 // and PNG are uploaded.
 // require(".env").config();
@@ -129,7 +128,6 @@ app.get("/edit", function(req, res) {
 app.get("/edit/:postId", function(req, res) {
   const requestedPostId = req.params.postId;
   Post.find({ _id: requestedPostId }, function(err, posts) {
-    //TODO find the post requested and save it's images to a variable to pass to the ejs.]
     //log(requestedPostId);
     let postimages;
     posts.forEach(post => {
@@ -280,6 +278,32 @@ app.post("/post-images", (req, res) => {
   );
 });
 
+//When a post is deleted.
+app.post("/delete-date", (req, res) => {
+  const dateID = req.body[0];
+  console.log(dateID);
+
+  FeatureDate.deleteOne({ _id: dateID })
+    .then(() => {
+      //console.log("Done deleting.");
+      res.redirect("/");
+    })
+    .catch(err => console.log(err));
+});
+
+//When a post is deleted.
+app.post("/delete-post", (req, res) => {
+  const postID = req.body[0];
+  console.log(postID);
+
+  Post.deleteOne({ _id: postID })
+    .then(() => {
+      //console.log("Done deleting.");
+      res.redirect("/");
+    })
+    .catch(err => console.log(err));
+});
+
 //When someone removes an images.
 app.post("/remove-image", (req, res) => {
   let postImage = req.body;
@@ -338,5 +362,5 @@ if (port == null || port == "") {
   port = 3000;
 }
 app.listen(port, function() {
-  //console.log("Server has started successfully.");
+  console.log("Server has started successfully.");
 });
