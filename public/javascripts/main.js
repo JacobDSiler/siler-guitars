@@ -81,7 +81,7 @@ $(".delete-date > h1").on("click", async e => {
     body: JSON.stringify(deleteDateRef)
   });
 
-  const myJson = await result.json(location.reload());
+  const myJson = await result.json();
   //console.log(JSON.stringify(myJson));
   return false;
 });
