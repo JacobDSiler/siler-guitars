@@ -281,14 +281,16 @@ app.post("/post-images", (req, res) => {
 //When a post is deleted.
 app.post("/delete-date", (req, res) => {
   const dateID = req.body[0];
-  console.log(dateID);
 
   FeatureDate.deleteOne({ _id: dateID })
     .then(() => {
-      //console.log("Done deleting.");
-      res.redirect("/");
+      console.log(dateID);
+      res.redirect("/compose");
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      res.redirect("/");
+    });
 });
 
 //When a post is deleted.
