@@ -282,7 +282,7 @@ app.post("/post-images", (req, res) => {
 app.post("/delete-date", (req, res) => {
   const dateID = req.body[0];
 
-  FeatureDate.findOneAndDelete({ _id: dateID })
+  FeatureDate.remove({ _id: dateID })
     .then(() => {
       console.log(dateID);
     })
