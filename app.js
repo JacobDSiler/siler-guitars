@@ -285,12 +285,16 @@ app.post("/delete-date", (req, res) => {
   FeatureDate.deleteOne({ _id: dateID })
     .then(() => {
       console.log(dateID);
-      res.redirect("/compose");
+      return res.redirect("/");
     })
     .catch(err => {
       console.log(err);
-      res.redirect("/");
+      return res.sendStatus(400);
     });
+  //Set HTTP method to GET
+  /*req.method = "GET";
+
+  res.redirect("/");*/
 });
 
 //When a post is deleted.
