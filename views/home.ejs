@@ -1,14 +1,17 @@
-
 <%- include("partials/header"); -%>
 <div class="row">
-
-
   <div class="col-sm-2 feature-date">
     <% theDates.forEach((date)=>{ %>
-        <div class="card" style="width: 17rem;">
-          <a href="/" class="delete-date"><h1 data-dateid="<%=date.id%>">X</h1></a>
-          <h2 class="text-center text-success"><%=date.date%></h2>
-      <a href="<%=date.imageUrl%>"><img class="card-img-top" style="width:17rem;" src="<%=date.imageUrl%>" alt=""></a>
+    <div class="card" style="width: 17rem;">
+      <a href="#" class="delete-date"><h1 data-dateid="<%=date.id%>">X</h1></a>
+      <h2 class="text-center text-success"><%=date.date%></h2>
+      <a href="<%=date.imageUrl%>"
+        ><img
+          class="card-img-top"
+          style="width:17rem;"
+          src="<%=date.imageUrl%>"
+          alt=""
+      /></a>
       <div class="card-body">
         <h5 class="card-title"><%=date.title%></h5>
         <p class="card-text"><%=date.content%></p>
@@ -18,44 +21,39 @@
           <%};%>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
-<br>
-<%});%>
-
+    <br />
+    <%});%>
   </div>
-
 
   <div class="col-sm-8">
     <h1>Home</h1>
-    <p> <%= startingContent %> </p>
-    <hr>
-<div class="">
+    <p><%= startingContent %></p>
+    <hr />
+    <div class="">
+      <% posts.forEach(function(post){ %>
 
-  <% posts.forEach(function(post){ %>
+      <a href="/posts/<%=post.id%>"><h1><%=post.title%></h1></a>
 
-    <a href="/posts/<%=post.id%>"><h1><%=post.title%></h1></a>
+      <a href="/posts/<%=post.id%>"
+        ><img
+          src="<%post.imageUrls[0]%>"
+          style="border-radius: 20px; height: 120px;"
+      /></a>
+      <p>
+        <%=post.content.substring(0, 100) + " ..."%>
+        <br />
+        <a href="/posts/<%=post.id%>">Read More</a>
+        <a href="/edit-post/<%=post.id%>">* Edit *</a>
+        <a href="/edit/<%=post.id%>">* Attach Images *</a>
+      </p>
 
-    <a href="/posts/<%=post.id%>"><img src="<%post.imageUrls[0]%>" style="border-radius: 20px; height: 120px;"></a>
-    <p>
-    <%=post.content.substring(0, 100) + " ..."%>
-    <br>
-    <a href="/posts/<%=post.id%>">Read More</a>
-    <a href="/edit-post/<%=post.id%>">* Edit *</a>
-    <a href="/edit/<%=post.id%>">* Attach Images *</a>
-    </p>
+      <hr />
 
-    <hr>
-
-  <% }); %>
-  </div>
+      <% }); %>
+    </div>
   </div>
 </div>
-
-
-
-
-
-
 
 <%- include("partials/footer"); -%>

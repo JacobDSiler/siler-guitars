@@ -83,7 +83,7 @@ $(".delete-date > h1").on("click", async e => {
 
   const myJson = await result.json();
   //console.log(JSON.stringify(myJson));
-  return false;
+  e.preventDefault();
 });
 //delete post logic for post view
 $("#delete-post").on("click", async e => {
@@ -103,6 +103,7 @@ $("#delete-post").on("click", async e => {
 
   const myJson = await result.json();
   //console.log(JSON.stringify(myJson));
+  e.preventDefault();
   return false;
 });
 

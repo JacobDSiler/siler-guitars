@@ -44,15 +44,19 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("./public"));
-//mongodb+srv://admin-jacob:4theoneIlove@cluster0-axkom.mongodb.net/silerguitars
+
 mongoose.connect(
   "mongodb+srv://admin-jacob:4theoneIlove@cluster0-axkom.mongodb.net/silerguitars",
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
+    useUnifiedTopology: true
   }
 );
+
+/*
+,
+    useFindAndModify: false
+    */
 
 //Defining the Image Schema
 const imageSchema = {
@@ -258,6 +262,11 @@ app.get("/uploads", function(req, res) {
   });
 });
 
+//this should get routed when a feature date is deleted.
+app.get("/remove-featured", function(req, res) {
+  return res.redirect("/");
+});
+
 //POST Routes
 //When someone picks images.
 app.post("/post-images", (req, res) => {
@@ -281,19 +290,14 @@ app.post("/post-images", (req, res) => {
 //When a post is deleted.
 app.post("/delete-date", (req, res) => {
   const dateID = req.body[0];
+  console.log(dateID);
 
-  FeatureDate.remove({ _id: dateID })
+  FeatureDate.deleteOne({ _id: dateID })
     .then(() => {
-      console.log(dateID);
+      //console.log("Done deleting.");
+      res.redirect("/remove-featured");
     })
-    .catch(err => {
-      console.log(err);
-      return res.sendStatus(400);
-    });
-  //Set HTTP method to GET
-  req.method = "GET";
-
-  res.redirect("/");
+    .catch(err => console.log(err));
 });
 
 //When a post is deleted.
